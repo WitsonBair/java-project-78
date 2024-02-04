@@ -2,12 +2,12 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
-public class MapSchema<T> extends BaseSchema<T> {
+public final class MapSchema<T> extends BaseSchema<T> {
     private Integer sizeof = null;
     private Map<String, BaseSchema<T>> schemas;
 
     public MapSchema() {
-        super.checkouts.add((m) -> m instanceof Map<?,?> || !required);
+        super.checkouts.add((m) -> m instanceof Map<?, ?> || !required);
     }
 
     public MapSchema<T> required() {

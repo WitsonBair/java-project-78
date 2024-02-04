@@ -1,6 +1,6 @@
 package hexlet.code.schemas;
 
-public final class StringSchema extends BaseSchema {
+public final class StringSchema<T> extends BaseSchema<T> {
     private int minLength;
     private String contains = null;
 
@@ -13,12 +13,12 @@ public final class StringSchema extends BaseSchema {
         });
     }
 
-    public StringSchema required() {
+    public StringSchema<T> required() {
         super.required = true;
         return this;
     }
 
-    public StringSchema minLength(int strMinLength) {
+    public StringSchema<T> minLength(int strMinLength) {
         this.minLength = strMinLength;
         super.checkouts.add((s) -> {
             if (s instanceof String) {
@@ -29,7 +29,7 @@ public final class StringSchema extends BaseSchema {
         return this;
     }
 
-    public StringSchema contains(String includeString) {
+    public StringSchema<T> contains(String includeString) {
         this.contains = includeString;
 
         super.checkouts.add((s) -> {

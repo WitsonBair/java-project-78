@@ -2,31 +2,31 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
-public class MapSchema extends BaseSchema{
+public class MapSchema<T> extends BaseSchema<T> {
     private Integer sizeof = null;
-    private Map<String, BaseSchema> schemas;
+    private Map<String, BaseSchema<T>> schemas;
 
     public MapSchema() {
         super.checkouts.add((m) -> m instanceof Map<?,?> || !required);
     }
 
-    public MapSchema required() {
+    public MapSchema<T> required() {
         super.required = true;
         return this;
     }
 
-    public MapSchema sizeof(Integer size) {
+    public MapSchema<T> sizeof(Integer size) {
         this.sizeof = size;
         super.checkouts.add((m) -> ((Map<?, ?>) m).size() == sizeof);
         return this;
     }
 
-    public void shape(Map<String, BaseSchema> newSchema) {
+    public void shape(Map<String, BaseSchema<T>> newSchema) {
         super.checkouts.add((m) -> {
             if (newSchema == null) {
                 return false;
             }
-            for (Map.Entry<String, BaseSchema> entry : newSchema.entrySet()) {
+            for (Map.Entry<String, BaseSchema<T>> entry : newSchema.entrySet()) {
                 if (((Map<?, ?>) m).containsKey(entry.getKey())) {
                     if (!entry.getValue().isValid(((Map<?, ?>) m).get(entry.getKey()))) {
                         return false;

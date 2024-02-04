@@ -1,0 +1,31 @@
+package hexlet.code.schemas;
+
+public class NumberSchema extends BaseSchema {
+    private boolean positive;
+    private int minRange = Integer.MIN_VALUE;
+    private int maxRange = Integer.MAX_VALUE;
+
+    public NumberSchema() {
+        super.checkouts.add((n) -> n instanceof Number || !required);
+    }
+
+    public NumberSchema required() {
+        required = true;
+        return this;
+    }
+
+    public NumberSchema positive() {
+        this.positive = true;
+        super.checkouts.add((n) -> {
+            return n instanceof Number ? (Integer) n > 0 : !required;
+        });
+        return this;
+    }
+
+    public NumberSchema range(int min, int max) {
+        this.minRange = min;
+        this.maxRange = max;
+        super.checkouts.add((n) -> minRange <= (Integer) n && (Integer) n <=maxRange);
+        return this;
+    }
+}
